@@ -1,0 +1,10 @@
+*
+!*/
+!.gitignore
+
+# Executable
+!bin/xno
+
+# Application code
+!lib/xno.rb
+!lib/xno/[a-z]*.rb
