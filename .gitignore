@@ -2,6 +2,9 @@
 !*/
 !.gitignore
 
+# Documentation
+!README.md
+
 # Executable
 !bin/xno
 
