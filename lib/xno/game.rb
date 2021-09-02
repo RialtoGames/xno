@@ -5,6 +5,7 @@ module XNO
   Y_RES = 1080 / 2
   FPS = 30
 
+  require_relative 'primitives'
   require_relative 'board'
   
   class Game < Gosu::Window
