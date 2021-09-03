@@ -11,7 +11,7 @@ module P
     end
   end
 
-  def self.draw_solid x, y, width, height
-    Gosu.draw_rect x, y, width, height, Gosu::Color.new(220, 250, 230), 1
+  def self.draw_solid x, y, width, height, color
+    Gosu.draw_rect x, y, width, height, color, 1
   end
 end

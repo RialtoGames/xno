@@ -5,17 +5,20 @@ module XNO
   Y_RES = 1080 / 2
   FPS = 30
 
+  require_relative 'cursor'
   require_relative 'primitives'
   require_relative 'board'
+  require_relative 'state'
   
   class Game < Gosu::Window
     def initialize
-      # @cursor = Cursor.new
-      # @keyboard = Keyboard.new
-      # @stat = Stat.new self.fps
-      @board = Board.new 3, 3
       super X_RES, Y_RES, fullscreen: false, update_interval: 1000.0 / FPS
       self.caption = "X and O"
+      @cursor = Cursor.new
+      @board = Board.new 3, 3
+      # @keyboard = Keyboard.new
+      # @event_queue = EventQueue.new :mouse
+      # @stat = Stat.new self.fps
     end
 
     def self.main_loop *args
@@ -24,12 +27,18 @@ module XNO
 
     def draw
       # @stat.draw
-      # @cursor.draw
+      @cursor.draw
       @board.draw
     end
 
     def update
+      @event_queue.update
       @board.update
+    end
+
+    private
+    def mouse_position
+      return mouse_x, mouse_y
     end
   end
 end
