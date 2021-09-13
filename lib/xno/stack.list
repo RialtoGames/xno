@@ -1,0 +1,5 @@
+cursor
+keyboard
+event_queue :mouse
+board 3 3
+chatbox

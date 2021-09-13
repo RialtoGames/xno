@@ -1,14 +1,19 @@
-class Cursor
-  def initialize
-    @texture = Gosu::Image.load_tiles '../assets/cursor.png',
-                                      16, 16, retro: true
-  end
+require_relative 'game_object'
 
-  def update
-    # ...
-  end
+module XNO
+  class Cursor < GameObject
+    def initialize *args
+      @texture = Gosu::Image.load_tiles '../assets/cursor.png',
+                 16, 16, retro: true
+      @texture = @texture[0]
+    end
 
-  def draw
-    @texture.draw Gosu::mouse_x, Gosu.mouse_y
+    def update
+      # ...
+    end
+
+    def draw
+      @texture.draw XNO.game.mouse_x, XNO.game.mouse_y, 10
+    end
   end
 end

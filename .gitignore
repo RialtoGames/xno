@@ -8,3 +8,4 @@
 # Application code
 !lib/xno.rb
 !lib/xno/[a-z]*.rb
+!lib/xno/[a-z]*.list

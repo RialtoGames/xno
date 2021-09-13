@@ -18,22 +18,46 @@ module XNO
     # Draw all the objects from stack
     def draw
       @stack.each_value do |object|
-        object.update
+        object.draw
       end
     end
 
     private
-    # !!! Research sending arguments !!!
+    # Parse values and send a method to object from @stack
     def parse_stack path
-      File.each_line path do |line|
+      puts "Parsing the '#{path}' file"
+      path = "../lib/xno/#{path}"
+      File.foreach path do |line|
         line = line.split
-        @stack[line[0].to_sym].send 
-      end if File.file? path
+        object = line[0].capitalize.to_sym.freeze
+        args   = line[1..-1].collect do |x| atom(x).freeze end
+        register_object object, args
+      end if File.file? path or puts "File not found!"
+    end
+
+    def register_object object, args
+      puts "Searching for #{object}.."
+      ObjectSpace.each_object Class do |o|
+        next unless o.name != nil and o.name.split('::').last.to_sym == object
+        puts "#{object} REGISTERED"
+        @stack[object] = o.new args
+      end
     end
 
     # Parse text to atomic values
-    def atom
-      
+    def atom text
+      case text
+      when /^\d+$/
+        value = text.to_i
+      when '^true$'
+        value = true
+      when '^false$'
+        value = false
+      else
+        value = text
+      end
+      puts "Atom #{value.class}"
+      value
     end
     
     # Initialize the stack hash

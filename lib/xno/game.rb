@@ -5,8 +5,16 @@ module XNO
   Y_RES = 1080 / 2
   FPS = 30
 
-  require_relative 'cursor'
+  def self.game
+    @game
+  end
+  
+  def self.main_loop
+    (@game = Game.main_loop).show
+  end
+
   require_relative 'primitives'
+  require_relative 'cursor'
   require_relative 'board'
   require_relative 'state'
   
@@ -14,31 +22,23 @@ module XNO
     def initialize
       super X_RES, Y_RES, fullscreen: false, update_interval: 1000.0 / FPS
       self.caption = "X and O"
-      @cursor = Cursor.new
-      @board = Board.new 3, 3
-      # @keyboard = Keyboard.new
-      # @event_queue = EventQueue.new :mouse
-      # @stat = Stat.new self.fps
+      @state = State.new
     end
 
     def self.main_loop *args
-      new(*args).show
+      new(*args)
     end
 
     def draw
-      # @stat.draw
-      @cursor.draw
-      @board.draw
+      @state.draw
     end
 
     def update
-      @event_queue.update
-      @board.update
+      @state.update
     end
 
-    private
-    def mouse_position
-      return mouse_x, mouse_y
+    def needs_cursor?
+      false
     end
   end
 end
