@@ -8,4 +8,4 @@ A minimalistic board game
 - Add Cursor tracking and the EventLoop with `:mouse_click`, `:key_press`, `:mouse_hover`, `:mouse_hold`, `:focus`
   One ovent ocuring should mementarly cancel the one buffored, so the state of each event type will be denamic
 - Tile change on event
-- Game round logic and checking the nearby rows following `:mouse_click_event` location
+- Game round logic and implement detection of the nearby rows
