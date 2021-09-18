@@ -28,20 +28,23 @@ module XNO
       puts "Parsing the '#{path}' file"
       path = "../lib/xno/#{path}"
       File.foreach path do |line|
+        next if line[0] == '#'
         line = line.split
-        object = line[0].capitalize.to_sym.freeze
+        object = line[0].split('_').collect do |w| w = w.capitalize end.join.to_sym.freeze
         args   = line[1..-1].collect do |x| atom(x).freeze end
         register_object object, args
       end if File.file? path or puts "File not found!"
     end
 
     def register_object object, args
-      puts "Searching for #{object}.."
+      done = false
       ObjectSpace.each_object Class do |o|
         next unless o.name != nil and o.name.split('::').last.to_sym == object
-        puts "#{object} REGISTERED"
+        puts "#{object.upcase} REGISTERED"
         @stack[object] = o.new args
+        done = true
       end
+      warn "#{object} not found" if done == false
     end
 
     # Parse text to atomic values
