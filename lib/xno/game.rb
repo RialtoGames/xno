@@ -10,11 +10,12 @@ module XNO
   end
   
   def self.main_loop
-    (@game = Game.main_loop).show
+    (@game = Game.make).show
   end
 
-  require_relative 'primitives'
-  require_relative 'cursor'
+  #require_relative 'event_queue'
+  require_relative 'mouse'
+  #require_relative 'keyboard'
   require_relative 'board'
   require_relative 'state'
   
@@ -25,7 +26,7 @@ module XNO
       @state = State.new
     end
 
-    def self.main_loop *args
+    def self.make *args
       new(*args)
     end
 

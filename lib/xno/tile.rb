@@ -9,29 +9,31 @@ module XNO
     X_OS = 50
     Y_OS = XNO::Y_RES / 2 - ((BORDER_Y * 2 + TILE_HEIGHT * 3) / 2)
     
-    def initialize x, y, state
-      @x = X_OS + (x * TILE_WIDTH)
-      @y = Y_OS + (y * TILE_HEIGHT)
-      y != 0? @v = BORDER_Y * y: @v = 0
-      x != 0? @h = BORDER_X * x: @h = 0
+    def initialize x, y, state = :none
+      _x = X_OS + (x * TILE_WIDTH)
+      _y = Y_OS + (y * TILE_HEIGHT)
+      puts "Pre: #{_x}, #{_y}"
+      x != 0? h = BORDER_X * x: h = 0
+      y != 0? v = BORDER_Y * y: v = 0
+      _x, _y = _x + h, _y + v
+      puts "Opt: #{_x}, #{_y}"
+      @sprite = Sprite.new :primitive, _x, _y, Layer::UI, nil,
+                           TILE_WIDTH, TILE_HEIGHT, true
       @state = state
       update
     end
 
     def draw
-      P.draw_solid @x + @h, @y + @v, TILE_WIDTH, TILE_HEIGHT, @color
-      P.draw_lines @x + @h, @y + @v, TILE_WIDTH + @x + @h, @y + @v,
-        TILE_WIDTH + @x + @h, TILE_HEIGHT + @y + @v,
-        @x + @h, TILE_HEIGHT + @y + @v, @x + @h, @y + @v
+      @sprite.draw
     end
 
     def update
       if @state == 0
-        @color = Gosu::Color.new(220, 250, 230)
+        @sprite.color = Gosu::Color.rgb(220, 250, 230)
       elsif @state == 1
-        @color = Gous::Color.new(230, 250, 240)
+        @sprite.color = Gous::Color.rgb(230, 250, 240)
       else
-        @color = Gosu::Color.new(250, 230, 240)
+        @sprite.color = Gosu::Color.rgb(250, 230, 240)
       end
     end
   end

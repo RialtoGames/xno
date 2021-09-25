@@ -1,5 +1,7 @@
-cursor
-keyboard
-event_queue :mouse
+# DKS
+# Mouse object initializes mouse_event_queue
+mouse
+# Keyboard object initializes keyboard_event_queue
+#keyboard
 board 3 3
-chatbox
+#chatbox
