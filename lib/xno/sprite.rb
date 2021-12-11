@@ -9,7 +9,6 @@ module Layer
 end
 
 require_relative 'primitives'
-#require_relative 'render'
 
 class Sprite
   attr_accessor :x, :y

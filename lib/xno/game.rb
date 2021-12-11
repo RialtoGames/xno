@@ -13,13 +13,16 @@ module XNO
     (@game = Game.make).show
   end
 
-  #require_relative 'event_queue'
+  require 'pry'                      # Development dependency
+  require_relative 'event_queue'
   require_relative 'mouse'
   #require_relative 'keyboard'
   require_relative 'board'
   require_relative 'state'
   
   class Game < Gosu::Window
+    attr_reader :state
+    
     def initialize
       super X_RES, Y_RES, fullscreen: false, update_interval: 1000.0 / FPS
       self.caption = "X and O"

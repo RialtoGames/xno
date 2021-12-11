@@ -1,6 +1,6 @@
 module XNO
   class Tile
-    attr_reader :state
+    attr_accessor :state, :sprite
     
     TILE_WIDTH = 100
     TILE_HEIGHT = 100
@@ -9,7 +9,7 @@ module XNO
     X_OS = 50
     Y_OS = XNO::Y_RES / 2 - ((BORDER_Y * 2 + TILE_HEIGHT * 3) / 2)
     
-    def initialize x, y, state = :none
+    def initialize x, y, state = 1
       _x = X_OS + (x * TILE_WIDTH)
       _y = Y_OS + (y * TILE_HEIGHT)
       puts "Pre: #{_x}, #{_y}"
@@ -31,10 +31,18 @@ module XNO
       if @state == 0
         @sprite.color = Gosu::Color.rgb(220, 250, 230)
       elsif @state == 1
-        @sprite.color = Gous::Color.rgb(230, 250, 240)
+        @sprite.color = Gosu::Color.rgb(230, 250, 240)
       else
         @sprite.color = Gosu::Color.rgb(250, 230, 240)
       end
+    end
+
+    def lms_down
+      @state = 0
+    end
+
+    def rms_down
+      @state = 2
     end
   end
 end
